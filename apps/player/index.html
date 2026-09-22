@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>矩阵乘法 · Visual Explainer</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./style.css"></head>
+<body><main>
+<header><a href="#" class="brand">◈ VISUAL EXPLAINER</a><span class="edition">交互式知识实验室 / 001</span></header>
+<section class="intro"><div><p class="eyebrow">LINEAR ALGEBRA · 线性代数</p><h1>一行 × 一列，<br>连接两段关系。</h1><p id="goal"></p></div><div class="intro-note"><b>为什么不是对应元素相乘？</b><p>把「套餐 → 配料」和「配料 → 营养」连接起来。<br>用 69 秒，亲手走完一次矩阵乘法。</p><span>青色 / 输入　紫色 / 权重　金色 / 结果</span></div></section>
+<section class="workspace" aria-label="交互动画播放器">
+<div class="stage-top"><span id="scene-count"></span><h2 id="beat"></h2><span class="live-label">可暂停 · 可回看</span></div>
+<div id="stage" aria-label="矩阵计算动画"></div>
+<p id="caption" class="caption"></p>
+<div class="transport"><button id="previous" title="上一语义步骤">← 上一步</button><button id="play" class="primary">播放</button><button id="next" title="下一语义步骤">下一步 →</button><output id="clock"></output><label class="speed-label">速度 <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button id="captions" aria-pressed="true">字幕 开</button></div>
+<input type="range" id="seek" min="0" max="69" step="0.01" value="0" aria-label="课程进度">
+<nav id="chapters" aria-label="课程章节"></nav>
+</section>
+<div class="lower"><section class="panel"><p class="eyebrow">01 / 自己试一下</p><h2>换一组数，关系依然成立。</h2><p>输入 JSON 矩阵，所有乘积、累计值与输出一起重算。</p><div class="editors"><label>A · 套餐 × 配料<textarea id="input-a" spellcheck="false" rows="3"></textarea></label><label>B · 配料 × 营养<textarea id="input-b" spellcheck="false" rows="3"></textarea></label></div><button id="apply">应用并重播</button><p id="error" role="alert"></p></section>
+<section class="panel"><p class="eyebrow">02 / 换一个角度</p><h2>这里没看懂？</h2><p>点击任意矩阵格，再查看当前步骤的路径解释。</p><label for="question">你的问题</label><input id="question" value="为什么要把乘积加起来？"><button id="explain">用路径再讲一次</button><p id="explanation" aria-live="polite"></p><details><summary>查看提问定位</summary><pre id="context"></pre></details></section></div>
+<details class="sources"><summary>来源与简化假设</summary><div id="sources"></div></details><footer>VISUAL EXPLAINER <span>先看见过程，再理解公式。</span></footer>
+</main><script type="module" src="./app.mjs"></script></body></html>

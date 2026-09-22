@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>矩阵乘法 · Visual Explainer</title><link rel="icon" href="data:,"><style>:root{font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;color:#e9eff6;background:#0a101b;font-synthesis:none;--a:#63deca;--b:#b7a1ff;--c:#f9cf79}*{box-sizing:border-box}body{margin:0}main{max-width:1240px;padding:0 38px;margin:auto}header,footer{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid #273143}.brand{color:#e9eff6;font-size:14px;font-weight:750;letter-spacing:2px;text-decoration:none}.edition,footer{color:#91a0b7;font-size:12px}.intro{display:flex;justify-content:space-between;align-items:center;padding:44px 0 34px;gap:40px}.eyebrow{color:var(--a);font-size:11px;letter-spacing:2px;font-weight:700}h1{font-size:43px;line-height:1.24;letter-spacing:-1px;margin:14px 0}h2{font-size:18px;margin:0}p{color:#a6b2c5;font-size:14px;line-height:1.8}.intro-note{border-left:2px solid #37455d;padding:8px 0 8px 24px}.intro-note span{font-size:12px;color:#96a6bd}.workspace{border:1px solid #2d3b50;background:#111c2c;border-radius:16px;overflow:hidden;box-shadow:0 20px 70px #0003}.stage-top{display:flex;gap:18px;align-items:center;padding:22px 28px;border-bottom:1px solid #253247}#scene-count{font:12px monospace;color:var(--a)}.live-label{margin-left:auto;color:#9eabc0;font-size:11px}#stage{width:100%;padding:8px 16px 0}svg{display:block;width:100%;height:auto}svg text{font-family:inherit}svg [data-object]{cursor:pointer;outline:none}svg [data-object]:focus rect{stroke:white;stroke-width:3}.caption{min-height:50px;margin:0;padding:0 30px 12px;text-align:center;color:#d0dbea;font-size:14px}.transport{display:flex;align-items:center;gap:10px;padding:18px 28px 9px;border-top:1px solid #253247}button,select{background:#1a293f;color:#dce6f5;border:1px solid #384961;border-radius:7px;font:inherit;font-size:13px;padding:9px 13px;cursor:pointer}button:hover{background:#2c405b}button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--a);outline-offset:3px}.primary{background:var(--a);color:#092621;border-color:var(--a);min-width:76px;font-weight:750}.primary:hover{background:#a0eedf}#clock{font:12px monospace;color:#a7b9cd;margin-left:12px}.speed-label{margin-left:auto;color:#a6b2c5;font-size:12px}#seek{display:block;width:calc(100% - 56px);margin:8px 28px;accent-color:var(--a);cursor:pointer}#chapters{display:flex;justify-content:space-between;gap:8px;padding:8px 28px 22px}#chapters button{border:0;background:none;padding:4px 0;color:#92a2ba;font-size:12px}#chapters button.active{color:var(--a)}.lower{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:24px 0}.panel{border:1px solid #29364a;border-radius:12px;padding:25px;background:#101925}.panel>p{margin:8px 0 16px}.editors{display:grid;grid-template-columns:1fr 1fr;gap:15px}label{font-size:12px;color:#adbbcf}textarea,input:not([type=range]){display:block;width:100%;background:#091321;color:#dbe9f6;border:1px solid #35445a;border-radius:6px;padding:10px;font:13px monospace;margin:8px 0 14px}textarea{resize:vertical}#error{color:#ffaaa3;margin-bottom:0}#explanation{color:var(--c)}details{color:#a5b6cc;font-size:12px;line-height:1.8}summary{cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere}#sources a{color:var(--a)}.sources{padding:12px 0 24px}footer{border-top:1px solid #273143;border-bottom:0;margin:15px 0}button:disabled{opacity:.4;cursor:default}
+@media(max-width:700px){main{padding:0 14px}header{padding:22px 0}.edition,.live-label{display:none}.intro{display:block;padding:26px 0}h1{font-size:34px}.intro-note{margin-top:24px;padding-left:15px}.lower{grid-template-columns:1fr}.stage-top{padding:16px;gap:10px}.stage-top h2{font-size:15px}#stage{padding:0}.caption{padding:8px 16px;min-height:88px;font-size:13px}.transport{flex-wrap:wrap;padding:14px;gap:8px}.transport button{padding:8px 10px;font-size:12px}.speed-label{margin-left:0}#clock{margin-left:auto}#chapters{padding:8px 14px 16px;flex-wrap:wrap;justify-content:flex-start;gap:14px}#seek{width:calc(100% - 28px);margin:8px 14px}.panel{padding:20px}.brand{font-size:12px}.editors{gap:8px}footer span{font-size:11px}}
+</style></head>
+<body><main>
+<header><a href="#" class="brand">◈ VISUAL EXPLAINER</a><span class="edition">交互式知识实验室 / 001</span></header>
+<section class="intro"><div><p class="eyebrow">LINEAR ALGEBRA · 线性代数</p><h1>一行 × 一列，<br>连接两段关系。</h1><p id="goal"></p></div><div class="intro-note"><b>为什么不是对应元素相乘？</b><p>把「套餐 → 配料」和「配料 → 营养」连接起来。<br>用 69 秒，亲手走完一次矩阵乘法。</p><span>青色 / 输入　紫色 / 权重　金色 / 结果</span></div></section>
+<section class="workspace" aria-label="交互动画播放器">
+<div class="stage-top"><span id="scene-count"></span><h2 id="beat"></h2><span class="live-label">可暂停 · 可回看</span></div>
+<div id="stage" aria-label="矩阵计算动画"></div>
+<p id="caption" class="caption"></p>
+<div class="transport"><button id="previous" title="上一语义步骤">← 上一步</button><button id="play" class="primary">播放</button><button id="next" title="下一语义步骤">下一步 →</button><output id="clock"></output><label class="speed-label">速度 <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label><button id="captions" aria-pressed="true">字幕 开</button></div>
+<input type="range" id="seek" min="0" max="69" step="0.01" value="0" aria-label="课程进度">
+<nav id="chapters" aria-label="课程章节"></nav>
+</section>
+<div class="lower"><section class="panel"><p class="eyebrow">01 / 自己试一下</p><h2>换一组数，关系依然成立。</h2><p>输入 JSON 矩阵，所有乘积、累计值与输出一起重算。</p><div class="editors"><label>A · 套餐 × 配料<textarea id="input-a" spellcheck="false" rows="3"></textarea></label><label>B · 配料 × 营养<textarea id="input-b" spellcheck="false" rows="3"></textarea></label></div><button id="apply">应用并重播</button><p id="error" role="alert"></p></section>
+<section class="panel"><p class="eyebrow">02 / 换一个角度</p><h2>这里没看懂？</h2><p>点击任意矩阵格，再查看当前步骤的路径解释。</p><label for="question">你的问题</label><input id="question" value="为什么要把乘积加起来？"><button id="explain">用路径再讲一次</button><p id="explanation" aria-live="polite"></p><details><summary>查看提问定位</summary><pre id="context"></pre></details></section></div>
+<details class="sources"><summary>来源与简化假设</summary><div id="sources"></div></details><footer>VISUAL EXPLAINER <span>先看见过程，再理解公式。</span></footer>
+</main><script type="module">/** Pure, replayable matrix lesson compiler and timeline. No DOM, clock, eval or mutable history. */
+class LessonError extends Error {
+  constructor(path, message) { super(`${path}: ${message}`); this.name = 'LessonError'; this.path = path; }
+}
+const fail = (p, m) => { throw new LessonError(p, m); };
+const plain = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+const keys = (x, allowed, p) => { if (!plain(x)) fail(p, 'expected object'); for (const k of Object.keys(x)) if (!allowed.includes(k)) fail(`${p}.${k}`, 'unknown field'); };
+const str = (x, p) => { if (typeof x !== 'string' || !x.trim()) fail(p, 'expected nonempty string'); };
+const finite = (x, p) => { if (!Number.isFinite(x)) fail(p, 'expected finite number'); };
+function matrixShape(a, p = '$.matrix') {
+  if (!Array.isArray(a) || a.length < 1 || a.length > 4) fail(p, 'expected 1–4 rows');
+  const n = Array.isArray(a[0]) ? a[0].length : 0;
+  if (n < 1 || n > 4) fail(p, 'expected 1–4 columns');
+  a.forEach((r, i) => {
+    if (!Array.isArray(r) || r.length !== n) fail(`${p}[${i}]`, 'ragged matrix');
+    r.forEach((v, j) => { finite(v, `${p}[${i}][${j}]`); if (Math.abs(v) > 999) fail(`${p}[${i}][${j}]`, 'absolute value must be ≤999'); });
+  });
+  return [a.length, n];
+}
+const ACTIONS = ['compare', 'focus', 'pairCells', 'accumulate', 'writeResult', 'morphEquation'];
+function validateIR(ir) {
+  keys(ir, ['version','lessonId','title','goal','objects','bindings','scenes','sources','assumptions'], '$');
+  if (ir.version !== '0.1') fail('$.version', 'supported version is 0.1');
+  ['lessonId','title','goal'].forEach(k => str(ir[k], `$.${k}`));
+  keys(ir.objects, ['A','B','C'], '$.objects');
+  for (const id of ['A','B','C']) {
+    const o = ir.objects[id]; keys(o, id === 'C' ? ['type','role'] : ['type','role','data'], `$.objects.${id}`);
+    if (o.type !== 'matrix') fail(`$.objects.${id}.type`, 'unknown primitive');
+    if (o.role !== ({A:'input',B:'weight',C:'result'})[id]) fail(`$.objects.${id}.role`, 'invalid semantic role');
+  }
+  const [m, n] = matrixShape(ir.objects.A.data, '$.objects.A.data');
+  const [b, p] = matrixShape(ir.objects.B.data, '$.objects.B.data');
+  if (n !== b) fail('$.objects.B.data', `dimension mismatch: A columns ${n} ≠ B rows ${b}`);
+  keys(ir.bindings, ['product'], '$.bindings');
+  keys(ir.bindings.product, ['op','left','right'], '$.bindings.product');
+  if (JSON.stringify([ir.bindings.product.op,ir.bindings.product.left,ir.bindings.product.right]) !== '["matmul","A","B"]') fail('$.bindings.product', 'only matmul(A,B) is supported');
+  if (!Array.isArray(ir.scenes) || !ir.scenes.length) fail('$.scenes', 'expected scenes');
+  const ids = new Set(); let total = 0;
+  ir.scenes.forEach((s, i) => {
+    const q = `$.scenes[${i}]`; keys(s, ['id','learningBeat','narration','action','duration','binding','cell'], q);
+    for (const k of ['id','learningBeat','narration']) str(s[k], `${q}.${k}`);
+    if (ids.has(s.id)) fail(`${q}.id`, 'duplicate ID'); ids.add(s.id);
+    if (!ACTIONS.includes(s.action)) fail(`${q}.action`, `unknown primitive ${s.action}`);
+    finite(s.duration, `${q}.duration`); if (s.duration <= 0 || s.duration > 30) fail(`${q}.duration`, 'expected (0,30] seconds'); total += s.duration;
+    if (s.binding !== 'product') fail(`${q}.binding`, 'unresolved binding');
+    if (['focus','pairCells','accumulate','writeResult'].includes(s.action)) {
+      if (!Array.isArray(s.cell) || s.cell.length !== 2 || !s.cell.every(Number.isInteger) || s.cell[0] < 0 || s.cell[0] >= m || s.cell[1] < 0 || s.cell[1] >= p) fail(`${q}.cell`, 'result cell out of bounds');
+    } else if (s.cell !== undefined) fail(`${q}.cell`, 'cell not applicable');
+  });
+  if (total > 300) fail('$.scenes', 'maximum duration is 300 seconds');
+  for (const k of ['sources','assumptions']) {
+    if (!Array.isArray(ir[k]) || !ir[k].length) fail(`$.${k}`, 'expected nonempty array');
+    ir[k].forEach((v,i) => str(v, `$.${k}[${i}]`));
+  }
+  // A write must follow a complete accumulation; every output must be produced exactly once.
+  const written = new Set(); const stages = new Map();
+  ir.scenes.forEach((s, i) => {
+    if (!s.cell) return;
+    const key = s.cell.join(','); const previous = stages.get(key);
+    const required = {pairCells:'focus', accumulate:'pairCells', writeResult:'accumulate'}[s.action];
+    if (required && previous !== required) fail(`$.scenes[${i}].action`, `expected preceding ${required} for C[${key}]`);
+    if (written.has(key)) fail(`$.scenes[${i}].cell`, 'result already written');
+    stages.set(key, s.action); if (s.action === 'writeResult') written.add(key);
+  });
+  if (written.size !== m*p) fail('$.scenes', 'every result cell must be accumulated and written');
+  return ir;
+}
+function matmul(A, B) {
+  const [m,n] = matrixShape(A); const [b,p] = matrixShape(B);
+  if (n !== b) fail('$.B', 'dimension mismatch');
+  return Array.from({length:m}, (_,i) => Array.from({length:p}, (_,j) => {
+    const terms = A[i].map((a,k) => ({k, a, b:B[k][j], product:a*B[k][j]}));
+    let sum = 0; const partials = terms.map(t => sum += t.product);
+    return {terms, partials, value:sum};
+  }));
+}
+const freeze = x => { if (x && typeof x === 'object') { Object.values(x).forEach(freeze); Object.freeze(x); } return x; };
+function compile(ir) {
+  validateIR(ir); const copy = structuredClone(ir); let cursor = 0;
+  const scenes = copy.scenes.map(s => { const start = cursor; cursor += s.duration; return {...s,start,end:cursor}; });
+  return freeze({ir:copy, scenes, duration:cursor, calculations:matmul(copy.objects.A.data,copy.objects.B.data)});
+}
+function stateAt(lesson, time) {
+  finite(time, '$.time'); const t = Math.min(lesson.duration, Math.max(0,time));
+  const index = t === lesson.duration ? lesson.scenes.length-1 : lesson.scenes.findIndex(s => t < s.end);
+  const scene = lesson.scenes[index]; const progress = Math.min(1,(t-scene.start)/scene.duration);
+  const [i,j] = scene.cell ?? [0,0]; const calc = lesson.calculations[i][j]; const count = calc.terms.length;
+  const output = lesson.calculations.map(row => row.map(() => null));
+  lesson.scenes.forEach(s => { if (s.action === 'writeResult' && t >= s.start) output[s.cell[0]][s.cell[1]] = lesson.calculations[s.cell[0]][s.cell[1]].value; });
+  const completed = scene.action === 'accumulate' ? Math.min(count,Math.floor(progress*count)) : ['writeResult','morphEquation'].includes(scene.action) ? count : 0;
+  const pair = Math.min(count-1,Math.floor(progress*count));
+  return {time:t,index,sceneId:scene.id,action:scene.action,progress,cell:[i,j],pair,completed,terms:calc.terms,partials:calc.partials,sum:completed ? calc.partials[completed-1] : 0,result:calc.value,output,focusedObjectIds:scene.action === 'compare' ? ['A','B'] : ['A','B','C'],narration:scene.narration,learningBeat:scene.learningBeat};
+}
+function stepTime(lesson, time, direction) {
+  const marks = [...new Set([0,lesson.duration,...lesson.scenes.flatMap(s => [s.start,...(s.action === 'accumulate' ? Array.from({length:lesson.calculations[s.cell[0]][s.cell[1]].terms.length},(_,k) => s.start + s.duration*(k+1)/lesson.calculations[s.cell[0]][s.cell[1]].terms.length) : [])])])].sort((a,b)=>a-b);
+  return direction > 0 ? marks.find(t => t > time+1e-8) ?? lesson.duration : marks.filter(t => t < time-1e-8).at(-1) ?? 0;
+}
+function questionContext(lesson,time,userQuestion,objectId) {
+  const s=stateAt(lesson,time);
+  return {lessonId:lesson.ir.lessonId,sceneId:s.sceneId,time:s.time,focusedObjectIds:objectId ? [objectId] : s.focusedObjectIds,cell:s.cell,userQuestion};
+}
+
+function makeLesson(A=[[1,2,3],[4,5,6]],B=[[1,2],[3,4],[5,6]],id='matrix-multiplication') {
+  const [m,n]=matrixShape(A); const [b,p]=matrixShape(B); if(n!==b) throw new Error('A columns must match B rows');
+  const scenes=[];
+  const add=(id,action,duration,learningBeat,narration,cell)=>scenes.push({id,action,duration,learningBeat,narration,binding:'product',...(cell?{cell}:{})});
+  add('why-compose','compare',8,'矩阵乘法，连接两段关系','A 把配料映射到套餐，B 把营养映射到配料。连接中间的配料，才能算出每份套餐的营养。');
+  for(let i=0;i<m;i++) for(let j=0;j<p;j++) {
+    const suffix=`${i}-${j}`, first=i===0&&j===0;
+    add(`focus-${suffix}`,'focus',first?5:2,'选一行，再选一列',`A 第 ${i+1} 行表示一份套餐用了哪些配料；B 第 ${j+1} 列表示每种配料提供多少同一种营养。`,[i,j]);
+    add(`pair-${suffix}`,'pairCells',first?7:2,'沿共同维度，一项一项配对','相同配料才配对：套餐中的用量，乘以这份配料的营养含量。',[i,j]);
+    add(`sum-${suffix}`,'accumulate',first?9:3,'把每种配料的贡献加起来','每个乘积是一条中间路径的贡献。所有配料的贡献相加，得到这个输出格。',[i,j]);
+    add(`write-${suffix}`,'writeResult',first?4:2,'将总和写回对应输出格',`结果写入 C 的第 ${i+1} 行、第 ${j+1} 列；它代表这份套餐的这一种营养总量。`,[i,j]);
+  }
+  add('generalize','morphEquation',9,'公式，是刚才配对和累加的缩写','i 选套餐，j 选营养，k 遍历配料。因此 A 的列数必须等于 B 的行数。对应元素相乘不会把中间路径汇总。');
+  return {version:'0.1',lessonId:id,title:'为什么矩阵乘法不是对应元素相乘？',goal:'看懂一个输出格如何由一行与一列配对、相乘、累加得到。',objects:{A:{type:'matrix',role:'input',data:A},B:{type:'matrix',role:'weight',data:B},C:{type:'matrix',role:'result'}},bindings:{product:{op:'matmul',left:'A',right:'B'}},scenes,sources:['https://textbooks.math.gatech.edu/ila/matrix-multiplication.html'],assumptions:['使用实数小矩阵，按标准行列乘法定义计算。','套餐、配料与营养是线性加总的教学模型；示例数字是虚构单位。','逐元素乘法是另一种运算（Hadamard 积），要求两个矩阵形状相同。','当前渲染器支持每个维度 1–4，输入绝对值不超过 999；显示值四舍五入至 3 位小数，计算保留浮点精度。']};
+}
+
+
+const color={A:'#63deca',B:'#b7a1ff',C:'#f9cf79'};
+const fmt=x => x===null ? '·' : Number.isInteger(x) ? String(x) : Number(x.toFixed(3)).toString();
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const text=(x,y,value,fill='#dce7f4',size=20,extra='')=>`<text x="${x}" y="${y}" fill="${fill}" font-size="${size}" text-anchor="middle" ${extra}>${esc(value)}</text>`;
+function renderSVG(lesson,s,compact=false) {
+  const W=compact?540:1040,H=compact?760:475;
+  const A=lesson.ir.objects.A.data,B=lesson.ir.objects.B.data;
+  const [i,j]=s.cell; const active=s.action!=='compare';
+  const layout=compact?{A:[135,108],B:[405,108],C:[270,380]}:{A:[185,105],B:[520,105],C:[855,105]};
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(s.learningBeat)}"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#7387a3"/></marker></defs>`;
+  const centers={};
+  for(const [id,data,label] of [['A',A,'套餐 × 配料'],['B',B,'配料 × 营养'],['C',s.output,'套餐 × 营养']]) {
+    const [cx,cy]=layout[id], rows=data.length, cols=data[0].length;
+    const cell=compact?49:54; const x0=cx-cols*cell/2, y0=cy;
+    svg+=text(cx,cy-47,`${id}  ${rows} × ${cols}`,color[id],23,'font-weight="700"');
+    svg+=text(cx,cy-21,label,'#9cafc5',compact?18:16);
+    centers[id]=[];
+    data.forEach((row,r)=>{ centers[id][r]=[]; row.forEach((v,c)=>{
+      const x=x0+c*cell,y=y0+r*cell; centers[id][r][c]=[x+cell/2,y+cell/2];
+      const selected=active&&(id==='A'?r===i:id==='B'?c===j:r===i&&c===j);
+      const pairing=selected&&s.action==='pairCells'&&(id==='A'?c===s.pair:id==='B'?r===s.pair:false);
+      const written=id==='C'&&v!==null;
+      svg+=`<g role="button" tabindex="0" data-object="${id}" data-row="${r}" data-col="${c}" aria-label="${id} 第${r+1}行 第${c+1}列 ${fmt(v)}"><rect x="${x+3}" y="${y+3}" width="${cell-6}" height="${cell-6}" rx="7" fill="${selected||written?color[id]:'#18263a'}" fill-opacity="${pairing?.42:selected||written?.18:1}" stroke="${selected||written?color[id]:'#2c3b50'}" stroke-width="${pairing?3:1}"/>${text(x+cell/2,y+cell/2+7,fmt(v),selected||written?color[id]:'#cbd8e8',String(fmt(v)).length>5?12:21)}</g>`;
+    });});
+  }
+  if(!compact){svg+=text(350,160,'×','#71839d',30)+text(690,160,'=','#71839d',30);}
+  const y=compact?650:375;
+  if(s.action==='compare') {
+    svg+=text(W/2,y-17,'套餐 → 配料 → 营养',color.C,compact?26:27);
+    svg+=text(W/2,y+22,`共同的 ${A[0].length} 种配料，是两段关系之间的桥。`,'#b0c1d7',compact?19:20);
+    svg+=text(W/2,y+60,'逐元素相乘：只看同一位置，不汇总中间路径。','#8da1bd',compact?17:18);
+  } else if(s.action==='morphEquation') {
+    svg+=text(W/2-154,y-22,'Cᵢⱼ',color.C,32)+text(W/2-70,y-22,'= Σₖ','#dce7f4',32)+text(W/2+30,y-22,'Aᵢₖ',color.A,32)+text(W/2+125,y-22,'Bₖⱼ',color.B,32);
+    svg+=text(W/2,y+16,`i：套餐　 j：营养　 k：${A[0].length} 种配料`,'#c3cee0',compact?20:21);
+    svg+=text(W/2,y+54,`(${A.length} × ${A[0].length}) · (${B.length} × ${B[0].length}) → ${A.length} × ${B[0].length}`,'#8da1bd',22);
+  } else {
+    const width=compact?120:175, start=W/2-(s.terms.length-1)*width/2;
+    s.terms.forEach((t,k)=>{
+      const x=start+k*width, showProduct=s.action==='accumulate'||s.action==='writeResult';
+      const hot=s.action==='pairCells'?k===s.pair:k<s.completed;
+      svg+=`<rect x="${x-width/2+4}" y="${y-31}" width="${width-8}" height="58" rx="8" fill="${hot?'#273a50':'#16253a'}" stroke="${hot?color.C:'#31425a'}"/>`;
+      svg+=text(x,y-7,`${fmt(t.a)} × ${fmt(t.b)}`,'#dfebf7',compact?19:22);
+      svg+=text(x,y+16,showProduct?`= ${fmt(t.product)}`:`配料 ${k+1}`,hot?color.C:'#91a6c2',compact?17:18);
+      if(s.action==='pairCells'&&k===s.pair) {
+        const a=centers.A[i][k],b=centers.B[k][j];
+        const mix=(s.progress*s.terms.length)%1;
+        for(const [src,col] of [[a,color.A],[b,color.B]]) {
+          svg+=`<path d="M${src[0]} ${src[1]+22} Q${src[0]} ${y-65} ${x} ${y-33}" stroke="${col}" opacity=".55" stroke-width="2" fill="none" stroke-dasharray="5 5"/>`;
+          const px=(1-mix)*(1-mix)*src[0]+2*(1-mix)*mix*src[0]+mix*mix*x;
+          const py=(1-mix)*(1-mix)*(src[1]+22)+2*(1-mix)*mix*(y-65)+mix*mix*(y-33);
+          svg+=`<circle cx="${px}" cy="${py}" r="5" fill="${col}"/>`;
+        }
+      }
+    });
+    const label=s.action==='focus'?'一行选套餐，一列选营养。':s.action==='pairCells'?'同一种配料，才能配成一对。':`${s.completed} / ${s.terms.length} 项贡献　累计 ${fmt(s.sum)}${s.action==='writeResult'?` → C[${i+1}, ${j+1}]`:''}`;
+    svg+=text(W/2,y+64,label,color.C,compact?20:22);
+    if(s.action==='writeResult') {
+      const dest=centers.C[i][j]; const pulse=1-s.progress;
+      svg+=`<rect x="${dest[0]-24-pulse*7}" y="${dest[1]-24-pulse*7}" width="${48+pulse*14}" height="${48+pulse*14}" rx="9" fill="none" stroke="${color.C}" opacity="${pulse}" stroke-width="3"/>`;
+    }
+  }
+  return svg+'</svg>';
+}
+
+const $=id=>document.getElementById(id);
+let lesson,time=0,playing=false,speed=1,last=null,selected=null;
+function draw(){
+  const s=stateAt(lesson,time); $('stage').innerHTML=renderSVG(lesson,s,innerWidth<700);
+  $('beat').textContent=s.learningBeat; $('caption').textContent=s.narration;
+  $('scene-count').textContent=String(s.index+1).padStart(2,'0')+' / '+lesson.scenes.length;
+  $('clock').textContent=`${time.toFixed(1)} / ${lesson.duration.toFixed(0)} s`;
+  $('seek').value=time; $('play').textContent=playing?'暂停':time>=lesson.duration?'重播':'播放';
+  $('previous').disabled=time<=0; $('next').disabled=time>=lesson.duration;
+  for(const b of $('chapters').children)b.classList.toggle('active',Number(b.dataset.index)===s.index);
+}
+function seek(t){time=Math.max(0,Math.min(lesson.duration,t));last=null;draw();}
+function load(ir){lesson=compile(ir);time=0;playing=false;last=null;selected=null;
+  $('goal').textContent=ir.goal;$('seek').max=lesson.duration;
+  document.querySelector('.intro-note p').textContent=`把「套餐 → 配料」和「配料 → 营养」连接起来。用 ${lesson.duration} 秒，亲手走完一次矩阵乘法。`;
+  $('input-a').value=JSON.stringify(ir.objects.A.data);$('input-b').value=JSON.stringify(ir.objects.B.data);
+  $('chapters').replaceChildren();
+  lesson.scenes.forEach((s,index)=>{if(index===0||s.action==='focus'||s.action==='morphEquation'){const b=document.createElement('button');b.textContent=s.cell?`C[${s.cell.map(x=>x+1).join(',')}]` : s.action==='compare'?'两段关系':'通用公式';b.dataset.index=index;b.onclick=()=>{playing=false;seek(s.start);};$('chapters').append(b);}});
+  $('sources').replaceChildren();for(const source of ir.sources){const p=document.createElement('p');const a=document.createElement('a');a.textContent=source;if(/^https?:\/\//.test(source)){a.href=source;a.target='_blank';a.rel='noreferrer';}p.append(a);$('sources').append(p);}
+  for(const assumption of ir.assumptions){const p=document.createElement('p');p.textContent=assumption;$('sources').append(p);}
+  $('explanation').textContent='';$('context').textContent='';draw();
+}
+$('play').onclick=()=>{if(time>=lesson.duration)time=0;playing=!playing;last=null;draw();};
+$('previous').onclick=()=>{playing=false;seek(stepTime(lesson,time,-1));};
+$('next').onclick=()=>{playing=false;seek(stepTime(lesson,time,1));};
+$('seek').oninput=e=>{playing=false;seek(Number(e.target.value));};
+$('speed').onchange=e=>{speed=Number(e.target.value);last=null;};
+$('captions').onclick=()=>{const hidden=$('caption').style.visibility==='hidden';$('caption').style.visibility=hidden?'visible':'hidden';$('captions').textContent=hidden?'字幕 开':'字幕 关';$('captions').setAttribute('aria-pressed',String(hidden));};
+$('apply').onclick=()=>{try{const ir=makeLesson(JSON.parse($('input-a').value),JSON.parse($('input-b').value));load(ir);$('error').textContent='';}catch(e){$('error').textContent=e.message;}};
+function choose(e){const target=e.target.closest('[data-object]');if(!target)return;selected={id:target.dataset.object,row:Number(target.dataset.row),col:Number(target.dataset.col)};playing=false;draw();$('explanation').textContent=`已选择 ${selected.id}[${selected.row+1}, ${selected.col+1}]，点击“用路径再讲一次”查看。`;}
+$('stage').onclick=choose;$('stage').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(e);}};
+$('explain').onclick=()=>{
+  playing=false;draw();const s=stateAt(lesson,time);let [i,j]=s.cell;
+  if(selected){if(selected.id==='A')i=selected.row;else if(selected.id==='B')j=selected.col;else{i=selected.row;j=selected.col;}}
+  const calc=lesson.calculations[i][j];
+  const ctx=questionContext(lesson,time,$('question').value,selected?.id);ctx.cell=[i,j];if(selected)ctx.selectedCell=selected;
+  $('context').textContent=JSON.stringify(ctx,null,2);
+  $('explanation').textContent=`路径视角：从套餐 ${i+1} 到营养 ${j+1}，有 ${calc.terms.length} 条经过不同配料的路径。${calc.terms.map(t=>`经配料 ${t.k+1}：${fmt(t.a)} × ${fmt(t.b)} = ${fmt(t.product)}`).join('；')}。把这些路径的贡献相加，得到 ${fmt(calc.value)}。这是预置的局部解释；你的问题和位置已记录在下方，尚未连接 AI 回答服务。`;
+};
+addEventListener('resize',()=>lesson&&draw());
+document.addEventListener('visibilitychange',()=>{last=null;});
+function tick(now){if(lesson&&playing){if(last!==null)time=Math.min(lesson.duration,time+(now-last)/1000*speed);last=now;if(time>=lesson.duration)playing=false;draw();}requestAnimationFrame(tick);}
+try{load({
+  "version": "0.1",
+  "lessonId": "matrix-multiplication",
+  "title": "为什么矩阵乘法不是对应元素相乘？",
+  "goal": "看懂一个输出格如何由一行与一列配对、相乘、累加得到。",
+  "objects": {
+    "A": {
+      "type": "matrix",
+      "role": "input",
+      "data": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ]
+      ]
+    },
+    "B": {
+      "type": "matrix",
+      "role": "weight",
+      "data": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    },
+    "C": {
+      "type": "matrix",
+      "role": "result"
+    }
+  },
+  "bindings": {
+    "product": {
+      "op": "matmul",
+      "left": "A",
+      "right": "B"
+    }
+  },
+  "scenes": [
+    {
+      "id": "why-compose",
+      "action": "compare",
+      "duration": 8,
+      "learningBeat": "矩阵乘法，连接两段关系",
+      "narration": "A 把配料映射到套餐，B 把营养映射到配料。连接中间的配料，才能算出每份套餐的营养。",
+      "binding": "product"
+    },
+    {
+      "id": "focus-0-0",
+      "action": "focus",
+      "duration": 5,
+      "learningBeat": "选一行，再选一列",
+      "narration": "A 第 1 行表示一份套餐用了哪些配料；B 第 1 列表示每种配料提供多少同一种营养。",
+      "binding": "product",
+      "cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "pair-0-0",
+      "action": "pairCells",
+      "duration": 7,
+      "learningBeat": "沿共同维度，一项一项配对",
+      "narration": "相同配料才配对：套餐中的用量，乘以这份配料的营养含量。",
+      "binding": "product",
+      "cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "sum-0-0",
+      "action": "accumulate",
+      "duration": 9,
+      "learningBeat": "把每种配料的贡献加起来",
+      "narration": "每个乘积是一条中间路径的贡献。所有配料的贡献相加，得到这个输出格。",
+      "binding": "product",
+      "cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "write-0-0",
+      "action": "writeResult",
+      "duration": 4,
+      "learningBeat": "将总和写回对应输出格",
+      "narration": "结果写入 C 的第 1 行、第 1 列；它代表这份套餐的这一种营养总量。",
+      "binding": "product",
+      "cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "focus-0-1",
+      "action": "focus",
+      "duration": 2,
+      "learningBeat": "选一行，再选一列",
+      "narration": "A 第 1 行表示一份套餐用了哪些配料；B 第 2 列表示每种配料提供多少同一种营养。",
+      "binding": "product",
+      "cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "pair-0-1",
+      "action": "pairCells",
+      "duration": 2,
+      "learningBeat": "沿共同维度，一项一项配对",
+      "narration": "相同配料才配对：套餐中的用量，乘以这份配料的营养含量。",
+      "binding": "product",
+      "cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "sum-0-1",
+      "action": "accumulate",
+      "duration": 3,
+      "learningBeat": "把每种配料的贡献加起来",
+      "narration": "每个乘积是一条中间路径的贡献。所有配料的贡献相加，得到这个输出格。",
+      "binding": "product",
+      "cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "write-0-1",
+      "action": "writeResult",
+      "duration": 2,
+      "learningBeat": "将总和写回对应输出格",
+      "narration": "结果写入 C 的第 1 行、第 2 列；它代表这份套餐的这一种营养总量。",
+      "binding": "product",
+      "cell": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "focus-1-0",
+      "action": "focus",
+      "duration": 2,
+      "learningBeat": "选一行，再选一列",
+      "narration": "A 第 2 行表示一份套餐用了哪些配料；B 第 1 列表示每种配料提供多少同一种营养。",
+      "binding": "product",
+      "cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "pair-1-0",
+      "action": "pairCells",
+      "duration": 2,
+      "learningBeat": "沿共同维度，一项一项配对",
+      "narration": "相同配料才配对：套餐中的用量，乘以这份配料的营养含量。",
+      "binding": "product",
+      "cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "sum-1-0",
+      "action": "accumulate",
+      "duration": 3,
+      "learningBeat": "把每种配料的贡献加起来",
+      "narration": "每个乘积是一条中间路径的贡献。所有配料的贡献相加，得到这个输出格。",
+      "binding": "product",
+      "cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "write-1-0",
+      "action": "writeResult",
+      "duration": 2,
+      "learningBeat": "将总和写回对应输出格",
+      "narration": "结果写入 C 的第 2 行、第 1 列；它代表这份套餐的这一种营养总量。",
+      "binding": "product",
+      "cell": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "focus-1-1",
+      "action": "focus",
+      "duration": 2,
+      "learningBeat": "选一行，再选一列",
+      "narration": "A 第 2 行表示一份套餐用了哪些配料；B 第 2 列表示每种配料提供多少同一种营养。",
+      "binding": "product",
+      "cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "pair-1-1",
+      "action": "pairCells",
+      "duration": 2,
+      "learningBeat": "沿共同维度，一项一项配对",
+      "narration": "相同配料才配对：套餐中的用量，乘以这份配料的营养含量。",
+      "binding": "product",
+      "cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "sum-1-1",
+      "action": "accumulate",
+      "duration": 3,
+      "learningBeat": "把每种配料的贡献加起来",
+      "narration": "每个乘积是一条中间路径的贡献。所有配料的贡献相加，得到这个输出格。",
+      "binding": "product",
+      "cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "write-1-1",
+      "action": "writeResult",
+      "duration": 2,
+      "learningBeat": "将总和写回对应输出格",
+      "narration": "结果写入 C 的第 2 行、第 2 列；它代表这份套餐的这一种营养总量。",
+      "binding": "product",
+      "cell": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "generalize",
+      "action": "morphEquation",
+      "duration": 9,
+      "learningBeat": "公式，是刚才配对和累加的缩写",
+      "narration": "i 选套餐，j 选营养，k 遍历配料。因此 A 的列数必须等于 B 的行数。对应元素相乘不会把中间路径汇总。",
+      "binding": "product"
+    }
+  ],
+  "sources": [
+    "https://textbooks.math.gatech.edu/ila/matrix-multiplication.html"
+  ],
+  "assumptions": [
+    "使用实数小矩阵，按标准行列乘法定义计算。",
+    "套餐、配料与营养是线性加总的教学模型；示例数字是虚构单位。",
+    "逐元素乘法是另一种运算（Hadamard 积），要求两个矩阵形状相同。",
+    "当前渲染器支持每个维度 1–4，输入绝对值不超过 999；显示值四舍五入至 3 位小数，计算保留浮点精度。"
+  ]
+}
+);requestAnimationFrame(tick);}catch(e){$('error').textContent=e.message;document.querySelectorAll('.transport button').forEach(b=>b.disabled=true);}
+// Stable debugging contract: snapshots use the same pure function as playback.
+window.lessonPlayer={seek:t=>{playing=false;seek(t);},snapshot:()=>structuredClone(stateAt(lesson,time)),getIR:()=>structuredClone(lesson.ir),load,get playing(){return playing;}};
+</script></body></html>

@@ -1,0 +1,7 @@
+topic: 矩阵乘法
+audience: beginner
+learning_goal: 理解行列配对、乘积累加与结果写入
+core_confusion: 为什么不是对应元素相乘
+visual_strategy: information-flow
+prerequisites: [行与列, 乘法, 加法]
+scope: 实数小矩阵的标准乘法

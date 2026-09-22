@@ -1,0 +1,6 @@
+topic: 多算子模拟退火
+audience: beginner
+learning_goal: 理解多邻域生成与模拟退火接受规则的分工
+example: 八城市对称欧氏旅行商问题
+operators: [swap, insert, 2-opt]
+selection: 每轮固定等概率抽取一种

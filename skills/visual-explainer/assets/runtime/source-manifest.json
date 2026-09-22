@@ -1,0 +1,26 @@
+{
+  "version": "0.1",
+  "syncedAt": "2026-09-22T02:01:24.085Z",
+  "files": {
+    "package.json": "fd11ad9084bc0d01941c9a1b5dc5e30b1983456e8adc4cc6d85605c90dd9b3d4",
+    "package-lock.json": "48bffa0d3d22f41578010cb43d9bc70af47114cefd3380d63ed96e885d90510f",
+    "packages/core/core.mjs": "561b766a2f4f5e7b702d4cee78d0b4cd242853c5992d2f099d8ae9c8cd9bc832",
+    "packages/schema/lesson-ir.schema.json": "c4ccde4e263fd8820e49d6654f0527c940f7da9f6a4f93faec36ab0e9de9a0f0",
+    "packages/schema/lesson-spec.schema.json": "726b84486a36f1d23628e417ed8944fd14f4a8ab86efc73933c26ad5cd2e84ce",
+    "apps/player/index.html": "51188e94d6ca149b6632e9eb6d2506ac3fdb9175583c751a760defc23a7a3460",
+    "apps/player/style.css": "ffafaf96c3aecdba50df41d70a73898bda1a5764b650066c1ab713a02cf370ca",
+    "apps/player/app.mjs": "0823adb07bc0e80a8a6d56acb0d61dabdb35466b70ac4d6792c3d9213ce5035f",
+    "apps/player/render.mjs": "514687db80766c378ce429799285e89211e9adee2c3e104e84b0c0b4f52105d2",
+    "scripts/scaffold.mjs": "442410b0b4b89084baea4a72e843cb6d7e561a0d0aeca6e685f328f535373e49",
+    "scripts/scaffold-browser.mjs": "af138d94d1f926ac70a23b18dc5d83cf9a3b9be5b01ac2366596fbc5c57860bc",
+    "scripts/build.mjs": "17a783fee7c6dbe4e7a96997a2c1134fd365cc34348aeebfe6cab044192def47",
+    "scripts/validate.mjs": "2c83f267e083e5d11f1599122a0c1985bd8e03a929954c6c0ba473cb5288b998",
+    "scripts/verify-math.py": "53c230fded3d88819a54f641ad97efa6553275fb9e3451c413ae64b412b2b034",
+    "scripts/serve.mjs": "738038a8ed54173b2d41a8637b25e8c4b5445815b2b0b9b97afd0597c5af16d9",
+    "scripts/browser-qa.mjs": "2a6565514670b5cd5a10c9ba4fbdff50c0ef72d460567d076369e0109c2ea157",
+    "tests/core.test.mjs": "fa7f52427965603e80df397bbd7bd437d1dfd7fcee797233cb1d1134e547bc18",
+    "scripts/annealing_video.py": "ae850d849066f34cc79afb327cafca722d97642734a16351b3dd38f3b7a5ff01",
+    "scripts/narrate-annealing.ps1": "c0e39a22f98ce2e258ad673174232e2240902b57c524855e670139d6bbe7692a",
+    "scripts/package-annealing.mjs": "0cb0044b2694a1587b4fc506fa435af2e291ba74c05a2288e3a120b3c5147436"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "visual-explainer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate": "node scripts/validate.mjs lessons/matrix-multiplication/lesson.ir.json",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/serve.mjs",
+    "qa": "node scripts/browser-qa.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "playwright": "1.58.2"
+  }
+}

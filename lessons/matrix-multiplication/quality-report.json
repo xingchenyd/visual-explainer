@@ -1,0 +1,87 @@
+{
+  "version": "0.1",
+  "generatedAt": "2026-09-22T00:39:18.413Z",
+  "lessonId": "matrix-multiplication",
+  "irSha256": "55d593001502c613b4ccb633cd3f088dc626df2fa650fc3a7f077cd6e9cafdd1",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "load package",
+      "pass": true
+    },
+    {
+      "name": "all scene frames desktop, SVG bounds",
+      "pass": true
+    },
+    {
+      "name": "history independent DOM after reverse seek",
+      "pass": true
+    },
+    {
+      "name": "play, pause, speed and endpoint replay",
+      "pass": true
+    },
+    {
+      "name": "step backwards, forwards and range input",
+      "pass": true
+    },
+    {
+      "name": "captions optional and question captures selected object",
+      "pass": true
+    },
+    {
+      "name": "input edits and invalid inputs preserve last valid lesson",
+      "pass": true
+    },
+    {
+      "name": "mobile all scenes no overflow",
+      "pass": true
+    },
+    {
+      "name": "maximum dimension layout",
+      "pass": true
+    },
+    {
+      "name": "offline standalone opens without server",
+      "pass": true
+    },
+    {
+      "name": "no browser errors",
+      "pass": true
+    }
+  ],
+  "screenshots": "qa/",
+  "manualVisualReview": {
+    "status": "passed",
+    "inspected": [
+      "desktop-02-pair-0-0.png",
+      "desktop-17-generalize.png",
+      "mobile.png",
+      "mobile-4x4.png",
+      "desktop-03-sum-0-0.png",
+      "desktop-04-write-0-0.png"
+    ],
+    "findings": "Matched row/column colors and operand links, readable partial sum and final formula; desktop and mobile key frames inspected. 4x4 row clearance corrected. No full pixel-diff golden regression baseline is claimed."
+  },
+  "limitations": [
+    "Single matrix multiplication vertical slice; six semantic actions.",
+    "No AI service, TTS, video export, or arbitrary custom code execution."
+  ],
+  "coreTests": {
+    "command": "npm test",
+    "passed": 7,
+    "randomMatrixCases": 200
+  },
+  "independentMath": {
+    "command": "python scripts/verify-math.py lessons/matrix-multiplication",
+    "passed": true,
+    "comparisons": 28
+  },
+  "skillValidation": {
+    "frontmatter": "passed",
+    "generation": "passed",
+    "independentMath": "passed",
+    "browserSmoke": "passed",
+    "evidence": "../../skill-smoke/lesson/quality-report.json"
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "0.1"
+    },
+    "lessonId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objects": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "A": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "matrix"
+            },
+            "role": {
+              "const": "input"
+            },
+            "data": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 4,
+                "items": {
+                  "type": "number",
+                  "minimum": -999,
+                  "maximum": 999
+                }
+              }
+            }
+          },
+          "required": [
+            "type",
+            "role",
+            "data"
+          ]
+        },
+        "B": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "matrix"
+            },
+            "role": {
+              "const": "weight"
+            },
+            "data": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 4,
+                "items": {
+                  "type": "number",
+                  "minimum": -999,
+                  "maximum": 999
+                }
+              }
+            }
+          },
+          "required": [
+            "type",
+            "role",
+            "data"
+          ]
+        },
+        "C": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "matrix"
+            },
+            "role": {
+              "const": "result"
+            }
+          },
+          "required": [
+            "type",
+            "role"
+          ]
+        }
+      },
+      "required": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "product": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "matmul"
+            },
+            "left": {
+              "const": "A"
+            },
+            "right": {
+              "const": "B"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ]
+        }
+      },
+      "required": [
+        "product"
+      ]
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "learningBeat": {
+            "type": "string",
+            "minLength": 1
+          },
+          "narration": {
+            "type": "string",
+            "minLength": 1
+          },
+          "action": {
+            "enum": [
+              "compare",
+              "focus",
+              "pairCells",
+              "accumulate",
+              "writeResult",
+              "morphEquation"
+            ]
+          },
+          "duration": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 30
+          },
+          "binding": {
+            "const": "product"
+          },
+          "cell": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            }
+          }
+        },
+        "required": [
+          "id",
+          "learningBeat",
+          "narration",
+          "action",
+          "duration",
+          "binding"
+        ]
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "version",
+    "lessonId",
+    "title",
+    "goal",
+    "objects",
+    "bindings",
+    "scenes",
+    "sources",
+    "assumptions"
+  ]
+}

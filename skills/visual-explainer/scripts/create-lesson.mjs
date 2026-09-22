@@ -1,0 +1,11 @@
+import {resolve,dirname} from 'node:path';import {fileURLToPath} from 'node:url';import {readFile,writeFile,access} from 'node:fs/promises';import {spawnSync} from 'node:child_process';
+import {scaffold} from '../assets/runtime/scripts/scaffold.mjs';
+const skill=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+if(!process.argv[2])throw new Error('Usage: node create-lesson.mjs OUTPUT_DIR [CONFIG_JSON]');
+const target=resolve(process.argv[2]);let exists=false;try{await access(resolve(target,'lesson.ir.json'));exists=true;}catch(e){if(e.code!=='ENOENT')throw e;}if(exists)throw new Error('A lesson already exists at '+target+'; use a fresh directory or explicitly edit the existing IR.');
+const config=process.argv[3]?JSON.parse(await readFile(resolve(process.argv[3]),'utf8')):{};
+for(const k of Object.keys(config))if(!['A','B','lessonId'].includes(k))throw new Error('Unknown config key '+k);
+await scaffold(target,config.A,config.B,config.lessonId);
+const result=spawnSync(process.execPath,[resolve(skill,'assets/runtime/scripts/build.mjs'),resolve(target,'lesson.ir.json')],{stdio:'inherit'});if(result.status!==0)throw new Error('Build failed');
+await writeFile(resolve(target,'quality-report.json'),JSON.stringify({status:'pending-verification',schema:'semantic validation passed during build',math:'pending independent Python check',browser:'pending',manualVisualReview:'pending'},null,2));
+console.log('Lesson generated; verification is still required: '+resolve(target,'preview/standalone.html'));

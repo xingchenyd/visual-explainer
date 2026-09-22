@@ -1,0 +1,10 @@
+node_modules/
+.server.log
+skill-smoke/
+__pycache__/
+*.pyc
+*.log
+lessons/**/audio/*.wav
+.env
+.env.*
+!.env.example

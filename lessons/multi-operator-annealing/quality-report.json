@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "traceRowsVerified": 600,
+  "deterministicReplay": true,
+  "invariants": [
+    "permutation validity",
+    "fixed start",
+    "candidate transformation",
+    "closed route cost",
+    "delta",
+    "Metropolis probability",
+    "accept/reject",
+    "state continuity",
+    "best-so-far monotonicity"
+  ],
+  "exhaustiveReference": {
+    "tours": 5040,
+    "optimum": 24.224062567942187,
+    "bestFound": 24.224062567942187
+  },
+  "visualReview": {
+    "status": "passed",
+    "inspected": [
+      "qa/storyboard.jpg",
+      "qa/encoded-acceptance.png",
+      "qa/encoded-summary.png"
+    ],
+    "notes": [
+      "Three operators preserve stable city identities and visibly change visit order.",
+      "Acceptance, cooling and current/best curves were visually inspected.",
+      "Actual encoded video frames are legible at 1280x720."
+    ]
+  },
+  "mediaValidation": {
+    "durationSeconds": 185.875,
+    "dimensions": [
+      1280,
+      720
+    ],
+    "fps": 24,
+    "videoCodec": "h264",
+    "audioCodec": "aac",
+    "fullDecode": "passed",
+    "audioMeanDB": -24.0,
+    "audioPeakDB": -0.2,
+    "voice": "Microsoft Huihui Desktop",
+    "sizeBytes": 4939583
+  },
+  "tests": {
+    "pythonUnittest": 5,
+    "skillCopyPrepare": "passed",
+    "chapterPlayer": {
+      "browserPassed": true,
+      "metadata": {
+        "duration": 185.875,
+        "width": 1280,
+        "height": 720
+      },
+      "chapterSeek": true,
+      "errors": []
+    }
+  },
+  "limitations": [
+    "This is one deterministic illustrative run, not a multi-seed performance benchmark.",
+    "Chinese speech is synthesized locally; caption timing is approximate by scene.",
+    "Annealing video has a separate versioned profile and is not loaded by the matrix player."
+  ],
+  "videoSha256": "d3c6ab4a946ac32bbfa15390e8f22291aa7564b2078b09d675961fd6e5aad82c",
+  "traceSha256": "2761c0dfaceec5283d683ae9add29cc193e28470bcc828ec6ef75985f32c98f6"
+}

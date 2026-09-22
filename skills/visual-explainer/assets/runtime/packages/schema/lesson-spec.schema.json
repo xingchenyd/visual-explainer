@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "topic": {
+      "type": "string",
+      "minLength": 1
+    },
+    "audience": {
+      "const": "beginner"
+    },
+    "learning_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "core_confusion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_strategy": {
+      "enum": [
+        "information-flow",
+        "transformation"
+      ]
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "topic",
+    "audience",
+    "learning_goal",
+    "core_confusion",
+    "visual_strategy",
+    "prerequisites",
+    "scope"
+  ]
+}

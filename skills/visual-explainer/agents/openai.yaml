@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual Explainer"
+  short_description: "制作经过计算与画面验证的矩阵乘法交互课程、中文多算子模拟退火讲解视频"
+  default_prompt: "用 $visual-explainer 讲懂为什么矩阵乘法不是对应元素相乘。"
